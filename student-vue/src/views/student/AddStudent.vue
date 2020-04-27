@@ -10,7 +10,7 @@
     </el-form-item>
 
     <el-form-item label="性别" prop="gender">
-      <el-radio-group v-model="ruleForm.sex">
+      <el-radio-group v-model="ruleForm.gender">
         <el-radio label="男"></el-radio>
         <el-radio label="女"></el-radio>
       </el-radio-group>
@@ -52,7 +52,9 @@
 
 <script>
   export default {
+    name: "AddStudent",
     data() {
+
       let dOptions = [];
       return {
         dOptions,
@@ -60,11 +62,12 @@
         ruleForm: {
           sno: '',
           name: '',
-          sex: '',
+          gender: '',
           birthday:'',
           birthplace:'',
           phoneNumber:'',
-          dno:''},
+          dno:'',
+          },
 
         rules: {
           sno: [
@@ -73,7 +76,7 @@
           name:[
             { required: true, message: '姓名不能为空', trigger: 'blur' }
           ],
-          sex:[
+          gender:[
             { required: true, message: '请选择性别', trigger: 'change' }
           ],
           birthday: [

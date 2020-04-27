@@ -5,7 +5,7 @@ import Login from "../views/Login"
 import Main from "../views/Main"
 import AddStudent from "../views/student/AddStudent";
 import SelectAllStudent from "../views/student/SelectAllStudent";
-
+import UpdateStudent from "../views/student/UpdateStudent";
 Vue.use(Router)
 
 export default new Router({
@@ -33,8 +33,16 @@ export default new Router({
         {
           path: '/selectAllStudent',
           name: 'selectAllStudent',
-          component: SelectAllStudent
+          component: SelectAllStudent,
+          children:[
+            {
+              path: '/updateStudent',
+              name: 'updateStudent',
+              component: UpdateStudent
+            }
+          ]
         }
+
 
       ]
     },
