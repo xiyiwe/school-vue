@@ -3,10 +3,10 @@
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
-          <template slot="title"><i class="el-icon-message"></i>导航一</template>
+          <template slot="title">学生管理</template>
             <el-menu-item index="/addStudent">增加学生</el-menu-item>
             <el-menu-item index="/selectAllStudent">所有学生</el-menu-item>
-            <el-menu-item index="1-3">选项3</el-menu-item>
+            <el-menu-item index="1-3">学生选课</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-menu"></i>导航二</template>
@@ -46,9 +46,14 @@
 
 <script>
     export default {
-        name: "Main",
+        name: "AdminMain",
 
+      beforeCreate() {
+/*        sessionStorage.setItem("authority", "1aaaa");
+        console.log(sessionStorage.getItem("authority"));*/
+      }
     }
+
 </script>
 
 <style scoped>

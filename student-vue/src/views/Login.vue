@@ -4,14 +4,15 @@
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="账号" prop="username">
-        <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
+        <el-input type="text" name="username" placeholder="请输入账号" v-model="form.username"/>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+        <el-input type="password" name="password" placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
       </el-form-item>
+      <span >{{ errorMessage }}</span>
     </el-form>
 
 <!--    <el-dialog
@@ -32,6 +33,7 @@
     name: "Login",
     data() {
       return {
+        errorMessage: '',
         form: {
           username: '',
           password: ''
@@ -53,18 +55,49 @@
     },
     methods: {
       onSubmit(formName) {
+        const _this=this
+        _this.errorMessage=""
         // 为表单绑定验证功能
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            console.log(_this.form.username)
+            this.axios(
+              {
+                url: 'http://localhost:8001/login',
+                method: 'post',
+                params: {
+/*                  username: this.$qs.stringify(_this.form.username),
+                  password: this.$qs.stringify(_this.form.password)*/
+/*                  username: _this.form.username,
+                  password  :_this.form.password*/
+                  username: "1102",
+                  password  : "1102"
+                }
+              }).then(function(resp){
+              console.log(resp)
+              if(resp.data.authority === "student"){
+                    _this.$router.push('/adminMain')
+                  }
+              else if(resp.data.authority === "teacher"){
+                _this.$router.push('/adminMain')
+              }
+              else if(resp.data.authority === "admin"){
+                _this.$router.push('/adminMain')
+              }
+              else if(resp.data.errorMessage != null){
+                _this.errorMessage = resp.data.errorMessage
+                console.log(_this.errorMessage)
+              } /*else {
+                // this.dialogVisible = true;
+                return false;
+              }*/
+                })
+              }
+            })
             // 使用 vue-router 路由到指定页面，该方式称之为编程式导航
-            this.$router.push("/main");
-          } else {
-            this.dialogVisible = true;
-            return false;
+            // this.$router.push("/adminMain");
           }
-        });
-      }
-    }
+          }
   }
 </script>
 

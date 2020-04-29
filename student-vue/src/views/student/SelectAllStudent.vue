@@ -22,9 +22,9 @@
         width="100"
         >
         <template slot-scope="scope">
-          <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="editStudent(scope.row)" type="text" size="small">修改</el-button>
 
-          <el-button @click="deleteBook(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="deleteStudent(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -68,9 +68,9 @@
             }
           })
         },*/
-        deleteBook(row){
+        deleteStudent(row){
           const _this = this
-          this.axios.delete('http://localhost:8181/book/deleteById/'+row.id).then(function(resp){
+          this.axios.delete('http://localhost:8001/student/deleteById/'+row.sno).then(function(resp){
             _this.$alert('《'+row.name+'》删除成功！', '消息', {
               confirmButtonText: '确定',
               callback: action => {
@@ -79,7 +79,7 @@
             })
           })
         },
-        edit(row) {
+        editStudent(row) {
           this.updateDialog = true
           this.$router.push({
             path: '/updateStudent',
@@ -131,6 +131,8 @@
           this.axios.get('http://localhost:8001/department/selectDepartmentAllNameMap').then(function(resp){
           _this.department = resp.data
         })
+        _this.updateDialog = false
+
         /*this.$router.push({
           path: '/updateStudent',
           query:{

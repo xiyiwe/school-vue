@@ -9,6 +9,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import VueAxios from 'vue-axios'
 // Vue.prototype.$http = axios;
+import VueSession from 'vue-session'
+import qs from 'qs';
+Vue.prototype.$qs = qs;
+Vue.use(VueSession)
 Vue.prototype.axios = axios
 Vue.config.productionTip = false
 // 安装 ElementUI
