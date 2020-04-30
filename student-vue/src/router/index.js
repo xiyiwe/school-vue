@@ -5,6 +5,7 @@ import AdminMain from "../views/AdminMain"
 import AddStudent from "../components/student/AddStudent";
 import SelectAllStudent from "../views/student/SelectAllStudent";
 import UpdateStudent from "../components/student/UpdateStudent";
+import StudentMain from "../views/StudentMain";
 Vue.use(Router)
 
 const routes = [
@@ -14,6 +15,13 @@ const routes = [
     component: Login,
     meta: { requiresAuth: false }
   },
+  {
+    path: '/studentMain',
+    name: 'studentMain',
+    component: StudentMain,
+    meta: { requiresAuth: true }
+  }
+  ,
   {
     path: '/adminMain',
     name: 'adminMain',

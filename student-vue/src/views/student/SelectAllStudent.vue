@@ -68,6 +68,7 @@
             }
           })
         },*/
+
         deleteStudent(row){
           const _this = this
           this.axios.delete('http://localhost:8001/student/deleteById/'+row.sno).then(function(resp){

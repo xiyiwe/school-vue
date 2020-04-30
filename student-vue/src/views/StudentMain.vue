@@ -1,4 +1,4 @@
-<template>
+<template >
   <el-container style="height: 1000px; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu router :default-openeds="['1', '3']">
@@ -27,12 +27,12 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
+            <el-dropdown-item @click.native="logout()">退出</el-dropdown-item>
             <el-dropdown-item>新增</el-dropdown-item>
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>学号：{{user}}</span>
       </el-header>
 
       <el-main>
@@ -46,7 +46,24 @@
 <script>
   export default {
     name: "StudentMain",
+    user: '',
+    methods:{
+      logout(){
+        const _this = this
+        this.axios.get('http://localhost:8001/logout').then(function (resp) {
+          sessionStorage.setItem("authority", "")
+          sessionStorage.setItem("currentUser","")
+          _this.$router.push('/login')
+        })
 
+      }
+    },
+    beforeCreate() {
+      this.user = sessionStorage.getItem("currentUser")
+      if (sessionStorage.getItem("authority") !== "student") {
+        this.$router.push('/login')
+      }
+    }
   }
 </script>
 

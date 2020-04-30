@@ -65,23 +65,28 @@
               {
                 url: 'http://localhost:8001/login',
                 method: 'post',
-                params: {
+                data: {
 /*                  username: this.$qs.stringify(_this.form.username),
                   password: this.$qs.stringify(_this.form.password)*/
-/*                  username: _this.form.username,
-                  password  :_this.form.password*/
-                  username: "1102",
-                  password  : "1102"
+                  username: _this.form.username,
+                  password  :_this.form.password
+/*                  username: "1102",
+                  password  : "1102"*/
                 }
               }).then(function(resp){
-              console.log(resp)
               if(resp.data.authority === "student"){
-                    _this.$router.push('/adminMain')
+                sessionStorage.setItem("authority", "student");
+                sessionStorage.setItem("currentUser", resp.data.swno);
+                    _this.$router.push('/studentMain')
                   }
               else if(resp.data.authority === "teacher"){
-                _this.$router.push('/adminMain')
+                sessionStorage.setItem("authority", "teacher");
+                sessionStorage.setItem("currentUser", resp.data.swno);
+                _this.$router.push('/teacherMain')
               }
               else if(resp.data.authority === "admin"){
+                sessionStorage.setItem("authority", "admin");
+                sessionStorage.setItem("currentUser", resp.data.swno);
                 _this.$router.push('/adminMain')
               }
               else if(resp.data.errorMessage != null){
