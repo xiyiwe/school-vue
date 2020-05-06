@@ -119,8 +119,6 @@
     created() {
       const _this=this
       this.axios.get('http://localhost:8001/department/selectDepartmentAllName').then(function(resp){
-        console.log(resp)
-        console.log(resp.data)
         _this.dOptions = resp.data
 
     })

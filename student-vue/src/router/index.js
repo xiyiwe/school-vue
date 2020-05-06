@@ -6,20 +6,58 @@ import AddStudent from "../components/student/AddStudent";
 import SelectAllStudent from "../views/student/SelectAllStudent";
 import UpdateStudent from "../components/student/UpdateStudent";
 import StudentMain from "../views/StudentMain";
+import ElectCourseStudent from "../views/student/ElectCourse-student"
+import ElectedCourseStudent from "../views/student/ElectedCourse-student"
+import TeacherMain from "../views/TeacherMain";
+import ElectCourseTeacher from "../views/teacher/ElectCourse-teacher"
+
 Vue.use(Router)
 
 const routes = [
+  {
+    path: '/',
+    name: 'Login',
+    component: Login,
+    meta: { requiresAuth: false }
+  },
   {
     path: '/login',
     name: 'Login',
     component: Login,
     meta: { requiresAuth: false }
   },
+  //学生页面
   {
     path: '/studentMain',
     name: 'studentMain',
     component: StudentMain,
+    children: [
+      {
+        path: '/electStudent-student',
+        name: 'electCourseStudent',
+        component: ElectCourseStudent
+      },
+      {
+        path: '/electedCourseStudent',
+        name: 'electedCourseStudent',
+        component: ElectedCourseStudent
+      },
+    ],
     meta: { requiresAuth: true }
+  },
+  //教室页面
+  {
+    path: '/teacherMain',
+    name: 'teacherMain',
+    component: TeacherMain,
+    meta: {requiresAuth: true},
+    children: [
+      {
+        path: '/electCourseTeacher',
+        name: 'electCourseTeacher',
+        component: ElectCourseTeacher
+      }
+    ]
   }
   ,
   {

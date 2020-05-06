@@ -4,8 +4,8 @@
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
           <template slot="title">选课管理</template>
-          <el-menu-item index="/addStudent">选课</el-menu-item>
-          <el-menu-item index="/dropCourse">退课</el-menu-item>
+          <el-menu-item index="/electStudent-student">选课</el-menu-item>
+          <el-menu-item index="/electedCourseStudent">已选课程</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-menu"></i>导航二</template>
@@ -55,7 +55,6 @@
           sessionStorage.setItem("currentUser","")
           _this.$router.push('/login')
         })
-
       }
     },
     beforeCreate() {

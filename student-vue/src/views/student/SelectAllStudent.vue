@@ -13,7 +13,7 @@
       </el-table-column>
       <el-table-column prop="phoneNumber" label="电话">
       </el-table-column>
-      <el-table-column prop="dName" label="院系">
+      <el-table-column prop="dname" label="院系">
       </el-table-column>
 
       <el-table-column
@@ -92,14 +92,15 @@
         },
         page(currentPage) {
           const _this = this
-          this.axios.get('http://localhost:8001/student/selectStudent/'+currentPage).then(
+          this.axios.get('http://localhost:8001/student/query/'+currentPage).then(
             function (resp) {
+              console.log(resp)
               _this.pageData=resp.data.records
               _this.pageTotal=resp.data.total
               _this.pageSize = resp.data.size
-              for(var i=0; i<_this.pageSize;i++){
+/*              for(var i=0; i<_this.pageData.length;i++){
                 _this.pageData[i]['dName'] = _this.department[_this.pageData[i].dno].name
-              }
+              }*/
             }
           )
         },
@@ -120,13 +121,14 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/student/selectStudent/1').then(function(resp) {
+        this.axios.get('http://localhost:8001/student/query/1').then(function(resp) {
+          console.log(resp)
           _this.pageData = resp.data.records
           _this.pageTotal = resp.data.total
           _this.pageSize = resp.data.size
-          for(var i=0; i<_this.pageSize;i++){
+  /*        for(var i=0; i<_this.pageData.length;i++){
             _this.pageData[i]['dName'] = _this.department[_this.pageData[i].dno].name
-          }
+          }*/
 
         })
           this.axios.get('http://localhost:8001/department/selectDepartmentAllNameMap').then(function(resp){

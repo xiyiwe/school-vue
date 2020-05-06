@@ -28,7 +28,7 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
+            <el-dropdown-item @click.native="logout()">退出</el-dropdown-item>
             <el-dropdown-item>新增</el-dropdown-item>
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
@@ -47,7 +47,16 @@
 <script>
     export default {
         name: "AdminMain",
-        user: '',
+        user: '',methods:{
+        logout(){
+          const _this = this
+          this.axios.get('http://localhost:8001/logout').then(function (resp) {
+            sessionStorage.setItem("authority", "")
+            sessionStorage.setItem("currentUser","")
+            _this.$router.push('/login')
+          })
+        }
+      },
       beforeCreate() {
         this.user = sessionStorage.getItem("currentUser")
         if(sessionStorage.getItem("authority")!=="admin")
