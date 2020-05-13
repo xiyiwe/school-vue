@@ -60,7 +60,7 @@
           this.rowCourseDate.cno = row.cno
           this.rowCourseDate.workno = row.workno
           const _this = this
-          this.axios.post('http://localhost:8001/student/electCourse', _this.rowCourseDate).then(function (resp) {
+          this.axios.post('http://localhost:8001/student/removeElected', _this.rowCourseDate).then(function (resp) {
             if(resp.data==='success'){
               _this.$alert('退课成功！', '消息', {
                 confirmButtonText: '确定',

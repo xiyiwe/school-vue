@@ -4,7 +4,7 @@
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
           <template slot="title">开课管理</template>
-          <el-menu-item index="/electTeacher-teacher">可开课程</el-menu-item>
+          <el-menu-item index="/electCourseTeacher">可开课程</el-menu-item>
           <el-menu-item index="/dropCourse">已开课程</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
@@ -59,7 +59,7 @@
     },
     beforeCreate() {
       this.user = sessionStorage.getItem("currentUser")
-      if (sessionStorage.getItem("authority") !== "student") {
+      if (sessionStorage.getItem("authority") !== "teacher") {
         this.$router.push('/login')
       }
     }

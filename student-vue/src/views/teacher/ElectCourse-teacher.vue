@@ -1,39 +1,84 @@
 <template>
   <div>
-    <el-table :data="courseData">
-      <el-table-column  prop="sno" label="学号" width="140">
+    <el-table :data="courseList">
+      <el-table-column  prop="cno" label="课号" width="140">
       </el-table-column>
-      <el-table-column prop="name" label="学生姓名" width="120">
+      <el-table-column prop="name" label="课程名称" width="120">
       </el-table-column>
-      <el-table-column prop="gender" label="性别">
+      <el-table-column prop="credit" label="学分">
       </el-table-column>
-      <el-table-column prop="birthday" label="生日">
-      </el-table-column>
-      <el-table-column prop="birthplace" label="出生地点">
-      </el-table-column>
-      <el-table-column prop="phoneNumber" label="电话">
+      <el-table-column prop="period" label="课时">
       </el-table-column>
       <el-table-column prop="dname" label="院系">
       </el-table-column>
 
-<!--      <el-table-column
+      <el-table-column
         fixed="right"
         label="操作"
         width="100"
       >
         <template slot-scope="scope">
-          <el-button @click="editStudent(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="openCourse(scope.row)" type="text" size="small">开课</el-button>
 
-          <el-button @click="deleteStudent(scope.row)" type="text" size="small">删除</el-button>
         </template>
-      </el-table-column>-->
+      </el-table-column>
     </el-table>
+    <div>
+      <el-dialog
+        title="开课页面"
+        :visible.sync="openDialog"
+        width="60%"
+        v-if='openDialog'
+        :destroy-on-close="true"
+      >
+        <router-view></router-view>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="openDialog = false">取 消</el-button>
+          <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
+  </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
     export default {
-        name: "ElectCourse-teacher"
+        name: "ElectCourseTeacher",
+        data(){
+          return{
+            courseList: [],
+            openDialog: false,
+/*          {
+              cno: 0,
+              name:'',
+              credit:'',
+              period:'',
+              dname: ''
+            }*/
+          }
+        },
+      methods:{
+        openCourse(row) {
+          this.openDialog = true
+          this.$router.push({
+            path: '/openingCourse',
+            query:{
+              courseData: row
+              /*  updateDialog: true*/
+            }
+          })
+        }
+      },
+      created(){
+        const _this = this
+        this.axios.get('http://localhost:8001/searchByCourseName/all').then(function(resp) {
+          console.log(resp)
+          _this.courseList = resp.data
+        })
+
+        _this.updateDialog = false
+
+      }
     }
 </script>
 

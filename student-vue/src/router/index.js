@@ -10,7 +10,7 @@ import ElectCourseStudent from "../views/student/ElectCourse-student"
 import ElectedCourseStudent from "../views/student/ElectedCourse-student"
 import TeacherMain from "../views/TeacherMain";
 import ElectCourseTeacher from "../views/teacher/ElectCourse-teacher"
-
+import OpeningCourse from "../components/teacher/OpeningCourse"
 Vue.use(Router)
 
 const routes = [
@@ -45,7 +45,7 @@ const routes = [
     ],
     meta: { requiresAuth: true }
   },
-  //教室页面
+  //教师页面
   {
     path: '/teacherMain',
     name: 'teacherMain',
@@ -55,7 +55,19 @@ const routes = [
       {
         path: '/electCourseTeacher',
         name: 'electCourseTeacher',
-        component: ElectCourseTeacher
+        component: ElectCourseTeacher,
+        children: [
+          {
+            path: '/openingCourse',
+            name: 'openingCourse',
+            component: OpeningCourse,
+          }
+        ]
+      },
+      {
+        path: '/openingCourse',
+        name: 'openingCourse',
+        component: OpeningCourse
       }
     ]
   }

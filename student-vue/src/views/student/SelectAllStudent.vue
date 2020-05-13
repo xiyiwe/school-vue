@@ -42,7 +42,6 @@
     <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
   </span>
     </el-dialog>
-
     <el-pagination
       background
       layout="prev, pager, next"
