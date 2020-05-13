@@ -69,8 +69,9 @@
         },*/
 
         deleteStudent(row){
+          this.studentData.sno=row.sno
           const _this = this
-          this.axios.delete('http://localhost:8001/student/deleteById/'+row.sno).then(function(resp){
+          this.axios.post('http://localhost:8001/student/crud/delete',this.studentData).then(function(resp){
             _this.$alert('《'+row.name+'》删除成功！', '消息', {
               confirmButtonText: '确定',
               callback: action => {
@@ -115,7 +116,16 @@
           pageData,
           pageTotal,
           pageSize,
-          department
+          department,
+          studentData: {
+            sno: '',
+            name: '',
+            gender: '',
+            birthday:'',
+            birthplace:'',
+            phoneNumber:'',
+            dno:'',
+          }
         }
       },
       created(){

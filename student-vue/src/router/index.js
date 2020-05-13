@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Login from "../views/Login"
 import AdminMain from "../views/AdminMain"
 import AddStudent from "../components/student/AddStudent";
-import SelectAllStudent from "../views/student/SelectAllStudent";
+import SelectAllStudent from "../views/admin/SelectAllStudent";
 import UpdateStudent from "../components/student/UpdateStudent";
 import StudentMain from "../views/StudentMain";
 import ElectCourseStudent from "../views/student/ElectCourse-student"
