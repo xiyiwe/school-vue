@@ -43,7 +43,7 @@
 
 <script>
     export default {
-        name: "ElectCourseTeacher",
+        name: "OpeningCourseTeacher",
         data(){
           return{
             courseList: [],

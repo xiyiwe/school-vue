@@ -9,8 +9,10 @@ import StudentMain from "../views/StudentMain";
 import ElectCourseStudent from "../views/student/ElectCourse-student"
 import ElectedCourseStudent from "../views/student/ElectedCourse-student"
 import TeacherMain from "../views/TeacherMain";
-import ElectCourseTeacher from "../views/teacher/ElectCourse-teacher"
+import OpeningCourseTeacher from "../views/teacher/OpeningCourse-teacher"
 import OpeningCourse from "../components/teacher/OpeningCourse"
+import ElectingCourseTeacher from "../views/teacher/ElectingCourse-teacher"
+
 Vue.use(Router)
 
 const routes = [
@@ -53,21 +55,21 @@ const routes = [
     meta: {requiresAuth: true},
     children: [
       {
-        path: '/electCourseTeacher',
-        name: 'electCourseTeacher',
-        component: ElectCourseTeacher,
+        path: '/openingCourseTeacher',
+        name: 'openingCourseTeacher',
+        component: OpeningCourseTeacher,
         children: [
           {
             path: '/openingCourse',
             name: 'openingCourse',
             component: OpeningCourse,
           }
-        ]
-      },
+          ]
+        },
       {
-        path: '/openingCourse',
-        name: 'openingCourse',
-        component: OpeningCourse
+        path: '/electingCourseTeacher',
+        name: 'electingCourseTeacher',
+        component: ElectingCourseTeacher
       }
     ]
   }
