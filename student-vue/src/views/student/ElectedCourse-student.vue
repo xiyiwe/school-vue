@@ -11,6 +11,8 @@
         </el-table-column>
         <el-table-column prop="term" label="学期">
         </el-table-column>
+        <el-table-column prop="time" label="上课时间">
+        </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
@@ -21,10 +23,32 @@
           </template>
         </el-table-column>
       </el-table>
+    <h1>课程表</h1>
+    <div>
+      <el-table :data="courseList" >
+        <el-table-column  type="index" label="时间" width="140">
+        </el-table-column>
+        <el-table-column  prop="Mon" label="星期一" width="140">
+        </el-table-column>
+        <el-table-column prop="Tue" label="星期二" width="120">
+        </el-table-column>
+        <el-table-column prop="Wed" label="星期三">
+        </el-table-column>
+        <el-table-column prop="Thu" label="星期四">
+        </el-table-column>
+        <el-table-column prop="Fri" label="星期五">
+        </el-table-column>
+      </el-table>
+    </div>
+
+
   </div>
+
 </template>
 
 <script>
+
+  import CourseList from "../../components/student/CourseList";
 
   export default {
     name: "ElectedCourseStudent",
@@ -34,6 +58,8 @@
       return {
         courseData,
         resultCourseData,
+        courseList:[],
+
         rowCourseDate: {
           sno:'',
           term:'',
@@ -103,17 +129,18 @@
       }
 
     },
-    created(){
+    created() {
       const _this = this
-      this.axios.get('http://localhost:8001/student/elected/'+sessionStorage.getItem("currentUser")).then(function(resp) {
-        console.log(resp)
+      this.axios.get('http://localhost:8001/student/elected/' + sessionStorage.getItem("currentUser")).then(function (resp) {
         _this.courseData = resp.data
-        _this.resultCourseData= resp.data
-
+        _this.resultCourseData = resp.data
       })
       _this.updateDialog = false
-
+      this.axios.get('http://localhost:8001/student/schedule/' + sessionStorage.getItem("currentUser")).then(function (resp) {
+        _this.courseList = resp.data
+      })
     }
+
   }
 </script>
 

@@ -12,6 +12,8 @@ import TeacherMain from "../views/TeacherMain";
 import OpeningCourseTeacher from "../views/teacher/OpeningCourse-teacher"
 import OpeningCourse from "../components/teacher/OpeningCourse"
 import ElectingCourseTeacher from "../views/teacher/ElectingCourse-teacher"
+import SelectAllTeacher from "../views/admin/SelectAllTeacher"
+import CourseList from "../components/student/CourseList";
 
 Vue.use(Router)
 
@@ -42,7 +44,12 @@ const routes = [
       {
         path: '/electedCourseStudent',
         name: 'electedCourseStudent',
-        component: ElectedCourseStudent
+        component: ElectedCourseStudent,
+        children: [{
+            path: '/courseList',
+            name: 'courseList',
+            component: CourseList
+        }]
       },
     ],
     meta: { requiresAuth: true }
@@ -80,6 +87,11 @@ const routes = [
     component: AdminMain,
     meta: { requiresAuth: true },
     children: [
+      {
+        path: '/selectAllTeacher',
+        name: 'selectAllTeacher',
+        component: SelectAllTeacher
+      },
       {
         path: '/addStudent',
         name: 'addStudent',

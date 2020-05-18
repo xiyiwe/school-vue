@@ -1,11 +1,11 @@
 <template>
   <el-form style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
-    <el-form-item label="学号" prop="sno">
-      <el-input v-model="ruleForm.sno"></el-input>
+    <el-form-item label="工号" prop="workno">
+      <el-input v-model="ruleForm.workno"></el-input>
     </el-form-item>
 
-    <el-form-item label="姓名" prop="name">
+    <el-form-item label="教师姓名" prop="name">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
 
@@ -24,12 +24,12 @@
       </el-col>
     </el-form-item>
 
-    <el-form-item label="出生地点" prop="birthplace">
-      <el-input v-model="ruleForm.birthplace"></el-input>
+    <el-form-item label="职位" prop="education">
+      <el-input v-model="ruleForm.education"></el-input>
     </el-form-item>
 
-    <el-form-item label="手机号" prop="phoneNumber">
-      <el-input v-model="ruleForm.phoneNumber"></el-input>
+    <el-form-item label="薪资" prop="basicSalary">
+      <el-input v-model="ruleForm.basicSalary"></el-input>
     </el-form-item>
 
     <el-form-item label="院系" >
@@ -60,12 +60,12 @@
         dOptions,
         value: '',
         ruleForm: {
-          sno: '',
+          workno: '',
           name: '',
           gender: '',
           birthday:'',
-          birthplace:'',
-          phoneNumber:'',
+          education:'',
+          basicSalary:'',
           dno:'',
           },
 
@@ -88,9 +88,6 @@
           phoneNumber: [
             { required: true, message: '手机不能为空', trigger: 'blur' },
             {min: 11,max: 11,message: '手机号长度为11'}
-          ],
-          dno: [
-            { required: true, message: '院系不能为空', trigger: 'blur' }
           ],
         }
       };
