@@ -58,9 +58,13 @@
         data(){
           var courseData = [];
           var resultCourseData = [];
+          var courseList = [];
           return {
             courseData,
             resultCourseData,
+            courseList,
+            termList: ['2013-2014冬季', '2013-2014秋季', '2012-2013冬季', '2012-2013秋季'],
+            week: ['一', '二', '三', '四', '五'],
             rowCourseDate: {
               sno:'',
               term:'',
@@ -79,34 +83,52 @@
           }
         },
       methods:{
-        electCourse(row) {
-          this.$confirm('是否选课', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.rowCourseDate.sno = sessionStorage.getItem("currentUser")
-            this.rowCourseDate.term = row.term
-            this.rowCourseDate.cno = row.cno
-            this.rowCourseDate.workno = row.workno
-            const _this = this
-            this.axios.post('http://localhost:8001/student/electCourse', _this.rowCourseDate).then(function (resp) {
-              if(resp.data==='success'){
-                _this.$alert('选课成功！', '消息', {
-                  confirmButtonText: '确定',
-                  callback: action => {
-                    window.location.reload()
-                  }
-                })
+          isTimeOverlap(time) {
+            console.log('courseList: ' + JSON.stringify(this.courseList))
+            for (let t = time.charAt(3) - 1; t < time.charAt(5); t++) {
+              console.log(this.courseList[t][time.charAt(2)].length);
+              if (this.courseList[t][time.charAt(2)].length!=0) {
+                return true
               }
-                else {
-                _this.$alert('选课失败！', '消息', {
+            }
+            console.log('false')
+            return false
+          },
+          electCourse(row) {
+            const _this = this
+            this.$confirm('是否选课', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.rowCourseDate.sno = sessionStorage.getItem("currentUser")
+              this.rowCourseDate.term = row.term
+              this.rowCourseDate.cno = row.cno
+              this.rowCourseDate.workno = row.workno
+              if (this.isTimeOverlap(row.time)) {
+                console.log('if (this.isTimeOverlap(row.time))')
+                _this.$alert('课程时间冲突', '消息', {
                   confirmButtonText: '确定'
                 })
+                return
               }
+              this.axios.post('http://localhost:8001/student/electCourse', _this.rowCourseDate).then(function (resp) {
+                if(resp.data==='success'){
+                  _this.$alert('选课成功！', '消息', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                      window.location.reload()
+                    }
+                  })
+                }
+                  else {
+                  _this.$alert('选课失败！', '消息', {
+                    confirmButtonText: '确定'
+                  })
+                }
+              })
             })
-          })
-        },
+          },
           searchByCourseName(){
 /*            // 为表单绑定验证功能
             console.log(this.searchCourseName.courseName)
@@ -136,11 +158,18 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/opening/allOpening').then(function(resp) {
-          console.log(resp)
+        this.axios.get('http://localhost:8001/opening/' + this.termList[0]).then(function(resp) {
           _this.courseData = resp.data
           _this.resultCourseData= resp.data
 
+        })
+        this.selectedTerm = this.termList[0]
+        const url_prefix = 'http://localhost:8001/student'
+        const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
+        this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
+          console.log(url_prefix + '/schedule/' + url_suffix)
+          _this.courseList = resp.data
+          console.log(resp.data)
         })
         _this.updateDialog = false
 

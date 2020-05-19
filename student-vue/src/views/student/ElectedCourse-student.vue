@@ -1,5 +1,17 @@
 <template>
   <div>
+    <el-form style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="学期: " >
+        <el-select  v-model="selectedTerm" default-first-option="true">
+          <el-option @click.native="queryElected()"
+            v-for="item in termList"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
       <el-table :data="resultCourseData">
         <el-table-column  prop="workno" label="工号" width="140">
         </el-table-column>
@@ -26,17 +38,29 @@
     <h1>课程表</h1>
     <div>
       <el-table :data="courseList" >
-        <el-table-column  type="index" label="时间" width="140">
+<!--        <el-table-column  type="index" label="时间" width="140">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column  prop="Mon" label="星期一" width="140">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column prop="Tue" label="星期二" width="120">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column prop="Wed" label="星期三">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column prop="Thu" label="星期四">-->
+<!--        </el-table-column>-->
+<!--        <el-table-column prop="Fri" label="星期五">-->
+<!--        </el-table-column>-->
+        <el-table-column  type="index" label="时间">
         </el-table-column>
-        <el-table-column  prop="Mon" label="星期一" width="140">
+        <el-table-column  prop="一" label="星期一">
         </el-table-column>
-        <el-table-column prop="Tue" label="星期二" width="120">
+        <el-table-column prop="二" label="星期二">
         </el-table-column>
-        <el-table-column prop="Wed" label="星期三">
+        <el-table-column prop="三" label="星期三">
         </el-table-column>
-        <el-table-column prop="Thu" label="星期四">
+        <el-table-column prop="四" label="星期四">
         </el-table-column>
-        <el-table-column prop="Fri" label="星期五">
+        <el-table-column prop="五" label="星期五">
         </el-table-column>
       </el-table>
     </div>
@@ -69,9 +93,9 @@
           testScore:0,
           finalScore:0,
         },
-        errorMessage : ''
-
-
+        errorMessage : '',
+        termList: ['2013-2014冬季', '2013-2014秋季', '2012-2013冬季', '2012-2013秋季'],
+        selectedTerm: ''
       }
     },
     methods:{
@@ -126,17 +150,34 @@
           _this.resultCourseData=_this.courseData
           _this.errorMessage="没有搜索结果"
         }
+      },
+      queryElected(){
+        const _this = this
+        const url_prefix = 'http://localhost:8001/student'
+        const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
+        this.axios.get(url_prefix + '/elected/' + url_suffix).then(function (resp) {
+          _this.courseData = resp.data
+          _this.resultCourseData = resp.data
+        })
+        _this.updateDialog = false
+        this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
+          _this.courseList = resp.data
+          console.log(resp.data)
+        })
       }
-
     },
     created() {
       const _this = this
-      this.axios.get('http://localhost:8001/student/elected/' + sessionStorage.getItem("currentUser")).then(function (resp) {
+      this.selectedTerm = this.termList[0]
+      const url_prefix = 'http://localhost:8001/student'
+      const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
+      this.axios.get(url_prefix + '/elected/' + url_suffix).then(function (resp) {
         _this.courseData = resp.data
         _this.resultCourseData = resp.data
       })
       _this.updateDialog = false
-      this.axios.get('http://localhost:8001/student/schedule/' + sessionStorage.getItem("currentUser")).then(function (resp) {
+      this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
+        console.log(resp.data)
         _this.courseList = resp.data
       })
     }
