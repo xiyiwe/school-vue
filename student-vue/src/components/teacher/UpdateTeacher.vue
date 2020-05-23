@@ -9,7 +9,7 @@
   >-->
     <el-form  style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
-      <el-form-item  label="学号" prop="sno">
+      <el-form-item  label="工号" prop="workno">
         <el-input :disabled="true" v-model="ruleForm.sno"></el-input>
       </el-form-item>
 
@@ -63,7 +63,7 @@
 
 <script>
   export default {
-    name: "UpdateStudent",
+    name: "UpdateTeacher",
     data() {
       let dOptions = [];
       return {

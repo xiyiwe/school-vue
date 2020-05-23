@@ -70,8 +70,8 @@
           },
 
         rules: {
-          sno: [
-            { required: true, message: '学号不能为空', trigger: 'blur' }
+          workno: [
+            { required: true, message: '工号不能为空', trigger: 'blur' }
           ],
           name:[
             { required: true, message: '姓名不能为空', trigger: 'blur' }
@@ -82,12 +82,11 @@
           birthday: [
             {type: 'date', required: true, message: '请选择日期', trigger: 'change' }
           ],
-          birthplace: [
-            { required: true, message: '出生地不能为空', trigger: 'blur' }
+          education: [
+            { required: true, message: '职位不能为空', trigger: 'blur' }
           ],
-          phoneNumber: [
-            { required: true, message: '手机不能为空', trigger: 'blur' },
-            {min: 11,max: 11,message: '手机号长度为11'}
+          basicSalary: [
+            { required: true, message: '薪资不能为空', trigger: 'blur' },
           ],
         }
       };
@@ -102,7 +101,7 @@
                 _this.$alert(_this.ruleForm.name+' 添加成功！', '消息', {
                   confirmButtonText: '确定',
                   callback: action => {
-                    _this.$router.push('/selectAllStudent')
+                    _this.$router.push('/selectAllTeacher')
                   }
                 })
               }
