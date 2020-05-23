@@ -74,29 +74,30 @@
                   password  : "1102"*/
                 }
               }).then(function(resp){
-              if(resp.data.authority === "student"){
-                sessionStorage.setItem("authority", "student");
-                sessionStorage.setItem("currentUser", resp.data.swno);
-                    _this.$router.push('/studentMain')
-                  }
-              else if(resp.data.authority === "teacher"){
-                sessionStorage.setItem("authority", "teacher");
-                sessionStorage.setItem("currentUser", resp.data.swno);
-                _this.$router.push('/teacherMain')
-              }
-              else if(resp.data.authority === "admin"){
-                sessionStorage.setItem("authority", "admin");
-                sessionStorage.setItem("currentUser", resp.data.swno);
-                _this.$router.push('/adminMain')
-              }
-              else if(resp.data.errorMessage != null){
-                _this.errorMessage = resp.data.errorMessage
-                console.log(_this.errorMessage)
-              } /*else {
-                // this.dialogVisible = true;
-                return false;
-              }*/
-                })
+                console.log(resp)
+                if(resp.data.authority === "student"){
+                  sessionStorage.setItem("authority", "student");
+                  sessionStorage.setItem("currentUser", resp.data.swno);
+                  _this.$router.push('/studentMain')
+                }
+                else if(resp.data.authority === "teacher"){
+                  sessionStorage.setItem("authority", "teacher");
+                  sessionStorage.setItem("currentUser", resp.data.swno);
+                  _this.$router.push('/teacherMain')
+                }
+                else if(resp.data.authority === "admin"){
+                  sessionStorage.setItem("authority", "admin");
+                  sessionStorage.setItem("currentUser", resp.data.swno);
+                  _this.$router.push('/adminMain')
+                }
+                else if(resp.data.errorMessage != null){
+                  _this.errorMessage = resp.data.errorMessage
+                  console.log(_this.errorMessage)
+                } /*else {
+                  // this.dialogVisible = true;
+                  return false;
+                }*/
+              })
               }
             })
             // 使用 vue-router 路由到指定页面，该方式称之为编程式导航

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-button @click="addStudent()" size="small">新增</el-button>
     <el-table :data="pageData">
       <el-table-column  prop="sno" label="学号" width="140">
       </el-table-column>
@@ -29,18 +30,28 @@
       </el-table-column>
     </el-table>
     <el-dialog
-      title="修改页面"
+      title="修改"
       :visible.sync="updateDialog"
       width="60%"
-
       v-if='updateDialog'
-      :destroy-on-close="true"
-    >
+      :destroy-on-close="true">
       <router-view></router-view>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="updateDialog = false">取 消</el-button>
-    <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
-  </span>
+        <el-button @click="updateDialog = false">取 消</el-button>
+        <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="新增"
+      :visible.sync="addDialog"
+      width="60%"
+      v-if='addDialog'
+      :destroy-on-close="true">
+      <router-view></router-view>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addDialog = false">取 消</el-button>
+        <!--<el-button type="primary" @click="addDialog = false">确 定</el-button>-->
+      </span>
     </el-dialog>
     <el-pagination
       background
@@ -90,6 +101,10 @@
             }
           })
         },
+        addStudent() {
+          this.addDialog = true
+          this.$router.push({path: '/addStudent'});
+        },
         page(currentPage) {
           const _this = this
           this.axios.get('http://localhost:8001/student/query/'+currentPage).then(
@@ -113,6 +128,7 @@
         let  department ;
         return {
           updateDialog: false,
+          addDialog: false,
           pageData,
           pageTotal,
           pageSize,
@@ -144,6 +160,7 @@
           _this.department = resp.data
         })
         _this.updateDialog = false
+        _this.addDialog = false
 
         /*this.$router.push({
           path: '/updateStudent',

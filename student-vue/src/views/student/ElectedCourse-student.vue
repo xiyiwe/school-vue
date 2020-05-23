@@ -2,7 +2,7 @@
   <div>
     <el-form style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="学期: " >
-        <el-select  v-model="selectedTerm" default-first-option="true">
+        <el-select  v-model="selectedTerm" default-first-option>
           <el-option @click.native="queryElected()"
             v-for="item in termList"
             :key="item"
@@ -37,30 +37,18 @@
       </el-table>
     <h1>课程表</h1>
     <div>
-      <el-table :data="courseList" >
-<!--        <el-table-column  type="index" label="时间" width="140">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column  prop="Mon" label="星期一" width="140">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="Tue" label="星期二" width="120">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="Wed" label="星期三">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="Thu" label="星期四">-->
-<!--        </el-table-column>-->
-<!--        <el-table-column prop="Fri" label="星期五">-->
-<!--        </el-table-column>-->
-        <el-table-column  type="index" label="时间">
+      <el-table :data="courseList" :span-method="objectSpanMethod" border stripe>
+        <el-table-column  type="index" label="时间" width="80" align="center">
         </el-table-column>
-        <el-table-column  prop="一" label="星期一">
+        <el-table-column  prop="一" label="星期一" align="center">
         </el-table-column>
-        <el-table-column prop="二" label="星期二">
+        <el-table-column prop="二" label="星期二" align="center">
         </el-table-column>
-        <el-table-column prop="三" label="星期三">
+        <el-table-column prop="三" label="星期三" align="center">
         </el-table-column>
-        <el-table-column prop="四" label="星期四">
+        <el-table-column prop="四" label="星期四" align="center">
         </el-table-column>
-        <el-table-column prop="五" label="星期五">
+        <el-table-column prop="五" label="星期五" align="center">
         </el-table-column>
       </el-table>
     </div>
@@ -83,7 +71,8 @@
         courseData,
         resultCourseData,
         courseList:[],
-
+        schedulePadding: [-1, -1, -1, -1, -1],
+        week: ['一', '二', '三', '四', '五'],
         rowCourseDate: {
           sno:'',
           term:'',
@@ -94,11 +83,29 @@
           finalScore:0,
         },
         errorMessage : '',
-        termList: ['2013-2014冬季', '2013-2014秋季', '2012-2013冬季', '2012-2013秋季'],
+        termList: ['2012-2013冬季', '2012-2013秋季'],
         selectedTerm: ''
       }
     },
     methods:{
+      objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        columnIndex --;
+        let week = this.week[columnIndex];
+        if (rowIndex < this.schedulePadding[columnIndex]) { return [0, 0]; }
+        if (columnIndex === -1 || rowIndex === 7) { return; }
+        if (this.courseList[rowIndex][week].length===0) { return; }
+        let count = 1;
+        while (this.courseList[rowIndex][week] === this.courseList[rowIndex+count][week]) {
+          count ++;
+          if (rowIndex+count > 7) {break;}
+        }
+        this.schedulePadding[columnIndex] = rowIndex + count;
+        console.log("this.schedulePadding[columnIndex]  " + this.schedulePadding[columnIndex]);
+        if (count > 1) {
+          console.log({rowspan: count, colspan: 1});
+          return [count, 1];
+        }
+      },
       electCourse(row) {
         this.$confirm('是否退课', '提示', {
           confirmButtonText: '确定',
@@ -177,7 +184,7 @@
       })
       _this.updateDialog = false
       this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
-        console.log(resp.data)
+        console.log(JSON.stringify(resp.data));
         _this.courseList = resp.data
       })
     }
