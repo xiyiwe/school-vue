@@ -79,8 +79,8 @@ const routes = [
         component: ElectingCourseTeacher
       }
     ]
-  }
-  ,
+  },
+  //管理员页面
   {
     path: '/adminMain',
     name: 'adminMain',
@@ -90,18 +90,30 @@ const routes = [
       {
         path: '/selectAllTeacher',
         name: 'selectAllTeacher',
-        component: SelectAllTeacher
-      },
-      {
-        path: '/addStudent',
-        name: 'addStudent',
-        component: AddStudent
+        component: SelectAllTeacher,
+        children: [
+          {
+            path: '/addTeacher',
+            name: 'addTeacher',
+            component: AddTeacher
+          },
+          {
+            path: '/updateTeacher',
+            name: 'updateTeacher',
+            component: UpdateTeacher
+          }
+        ]
       },
       {
         path: '/selectAllStudent',
         name: 'selectAllStudent',
         component: SelectAllStudent,
         children: [
+          {
+            path: '/addStudent',
+            name: 'addStudent',
+            component: AddStudent
+          },
           {
             path: '/updateStudent',
             name: 'updateStudent',

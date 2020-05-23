@@ -5,20 +5,8 @@
         <el-submenu index="1">
           <template slot="title">学生管理</template>
             <el-menu-item index="/addStudent">增加学生</el-menu-item>
-            <el-menu-item index="/selectAllStudent">所有学生</el-menu-item>
+            <el-menu-item index="/selectAllStudent">学生管理</el-menu-item>
             <el-menu-item index="1-3">学生选课</el-menu-item>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-            <el-menu-item index="3-1">选项1</el-menu-item>
-            <el-menu-item index="3-2">选项2</el-menu-item>
-            <el-menu-item index="3-3">选项3</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
@@ -29,11 +17,11 @@
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="logout()">退出</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+<!--            <el-dropdown-item>新增</el-dropdown-item>-->
+<!--            <el-dropdown-item>删除</el-dropdown-item>-->
           </el-dropdown-menu>
         </el-dropdown>
-        <span>管理员编号：{{user}}</span>
+        <span>管理员：{{user}}</span>
       </el-header>
 
       <el-main>

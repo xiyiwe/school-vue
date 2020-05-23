@@ -52,7 +52,7 @@
 
 <script>
   export default {
-    name: "AddStudent",
+    name: "AddTeacher",
     data() {
 
       let dOptions = [];
@@ -70,8 +70,8 @@
           },
 
         rules: {
-          sno: [
-            { required: true, message: '学号不能为空', trigger: 'blur' }
+          workno: [
+            { required: true, message: '工号不能为空', trigger: 'blur' }
           ],
           name:[
             { required: true, message: '姓名不能为空', trigger: 'blur' }
@@ -83,7 +83,7 @@
             {type: 'date', required: true, message: '请选择日期', trigger: 'change' }
           ],
           birthplace: [
-            { required: true, message: '出生地不能为空', trigger: 'blur' }
+            { required: true, message: '学历不能为空', trigger: 'blur' }
           ],
           phoneNumber: [
             { required: true, message: '手机不能为空', trigger: 'blur' },
@@ -97,7 +97,7 @@
         const _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.axios.post('http://localhost:8001/student/crud/create',this.ruleForm).then(function(resp){
+            this.axios.post('http://localhost:8001/teacher/crud/create',this.ruleForm).then(function(resp){
               if(resp.data === 'success'){
                 _this.$alert(_this.ruleForm.name+' 添加成功！', '消息', {
                   confirmButtonText: '确定',

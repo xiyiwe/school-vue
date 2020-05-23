@@ -7,18 +7,18 @@
           <el-menu-item index="/openingCourseTeacher">可开课程</el-menu-item>
           <el-menu-item index="/electingCourseTeacher">已开课程</el-menu-item>
         </el-submenu>
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-          <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-          <el-menu-item index="3-3">选项3</el-menu-item>
-        </el-submenu>
+<!--        <el-submenu index="2">-->
+<!--          <template slot="title"><i class="el-icon-menu"></i>导航二</template>-->
+<!--          <el-menu-item index="2-1">选项1</el-menu-item>-->
+<!--          <el-menu-item index="2-2">选项2</el-menu-item>-->
+<!--          <el-menu-item index="2-3">选项3</el-menu-item>-->
+<!--        </el-submenu>-->
+<!--        <el-submenu index="3">-->
+<!--          <template slot="title"><i class="el-icon-setting"></i>导航三</template>-->
+<!--          <el-menu-item index="3-1">选项1</el-menu-item>-->
+<!--          <el-menu-item index="3-2">选项2</el-menu-item>-->
+<!--          <el-menu-item index="3-3">选项3</el-menu-item>-->
+<!--        </el-submenu>-->
       </el-menu>
     </el-aside>
 
@@ -28,11 +28,11 @@
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item @click.native="logout()">退出</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+<!--            <el-dropdown-item>新增</el-dropdown-item>-->
+<!--            <el-dropdown-item>删除</el-dropdown-item>-->
           </el-dropdown-menu>
         </el-dropdown>
-        <span>学号：{{user}}</span>
+        <span>工号：{{user}}</span>
       </el-header>
 
       <el-main>
