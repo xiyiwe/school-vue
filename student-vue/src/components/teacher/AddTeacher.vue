@@ -52,7 +52,7 @@
 
 <script>
   export default {
-    name: "AddStudent",
+    name: "AddTeacher",
     data() {
 
       let dOptions = [];
@@ -96,12 +96,13 @@
         const _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.axios.post('http://localhost:8001/student/crud/create',this.ruleForm).then(function(resp){
+            this.axios.post('http://localhost:8001/teacher/crud/create',this.ruleForm).then(function(resp){
               if(resp.data === 'success'){
                 _this.$alert(_this.ruleForm.name+' 添加成功！', '消息', {
                   confirmButtonText: '确定',
                   callback: action => {
                     _this.$router.push('/selectAllTeacher')
+                    window.location.reload()
                   }
                 })
               }

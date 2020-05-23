@@ -32,12 +32,12 @@
         </el-col>
       </el-form-item>
 
-      <el-form-item label="出生地点" prop="birthplace">
-        <el-input v-model="ruleForm.birthplace"></el-input>
+      <el-form-item label="职位" prop="education">
+        <el-input v-model="ruleForm.education"></el-input>
       </el-form-item>
 
-      <el-form-item label="手机号" prop="phoneNumber">
-        <el-input v-model="ruleForm.phoneNumber"></el-input>
+      <el-form-item label="薪资" prop="basicSalary">
+        <el-input v-model="ruleForm.basicSalary"></el-input>
       </el-form-item>
 
       <el-form-item label="院系" >
@@ -70,18 +70,18 @@
         dOptions,
         value: '',
         ruleForm: {
-          sno: '',
+          workno: '',
           name: '',
           gender: '',
           birthday:'',
-          birthplace:'',
-          phoneNumber:'',
+          education:'',
+          basicSalary:'',
           dno:'',
-          dName:''
         },
+
         rules: {
-          sno: [
-            { required: true, message: '学号不能为空', trigger: 'blur' }
+          workno: [
+            { required: true, message: '工号不能为空', trigger: 'blur' }
           ],
           name:[
             { required: true, message: '姓名不能为空', trigger: 'blur' }
@@ -90,14 +90,13 @@
             { required: true, message: '请选择性别', trigger: 'change' }
           ],
           birthday: [
-            { required: true, message: '请选择日期', trigger: 'change' }
+            {type: 'date', required: true, message: '请选择日期', trigger: 'change' }
           ],
-          birthplace: [
-            { required: true, message: '出生地不能为空', trigger: 'blur' }
+          education: [
+            { required: true, message: '职位不能为空', trigger: 'blur' }
           ],
-          phoneNumber: [
-            { required: true, message: '手机不能为空', trigger: 'blur' },
-            {min: 11,max: 11,message: '手机号长度为11'}
+          basicSalary: [
+            { required: true, message: '薪资不能为空', trigger: 'blur' },
           ],
         }
       };
@@ -107,13 +106,13 @@
         const _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.axios.post('http://localhost:8001/student/crud/update',this.ruleForm).then(function(resp){
+            this.axios.post('http://localhost:8001/teacher/crud/update',this.ruleForm).then(function(resp){
               if(resp.data === 'success'){
                 _this.$alert(_this.ruleForm.name+' 修改成功！', '消息', {
                   confirmButtonText: '确定'
                   ,
                   callback: action => {
-                    _this.$router.push('/selectAllStudent')
+                    _this.$router.push('/selectAllTeacher')
                     window.location.reload()
                   }
                 })

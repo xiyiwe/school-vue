@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-table :data="pageData">
+    <el-button @click="addTeacher()" >新增</el-button>
+    <el-table :data="teacherList">
       <el-table-column  prop="workno" label="工号" width="140">
       </el-table-column>
       <el-table-column prop="name" label="教师姓名" width="120">
@@ -42,14 +43,17 @@
     <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
   </span>
     </el-dialog>
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :page-size="pageSize"
-      :total="pageTotal"
-      @current-change="page"
-    >
-    </el-pagination>
+    <el-dialog
+      title="新增"
+      :visible.sync="addDialog"
+      width="60%"
+      v-if='addDialog'
+      :destroy-on-close="true">
+      <router-view></router-view>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addDialog = false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script >
@@ -59,19 +63,11 @@
         resetForm(formName) {
           this.$refs[formName].resetFields();
         },
-        /*dialogClose(){
-          this.$router.push({
-            path: '/updateStudent',
-            query:{
-              student: ''
-            }
-          })
-        },*/
 
         deleteTeacher(row){
-          this.studentData.sno=row.sno
+          this.teacherData.workno=row.workno
           const _this = this
-          this.axios.post('http://localhost:8001/student/crud/delete',this.studentData).then(function(resp){
+          this.axios.post('http://localhost:8001/teacher/crud/delete',this.teacherData).then(function(resp){
             _this.$alert('《'+row.name+'》删除成功！', '消息', {
               confirmButtonText: '确定',
               callback: action => {
@@ -90,32 +86,18 @@
             }
           })
         },
-        page(currentPage) {
-          const _this = this
-          this.axios.get('http://localhost:8001/student/query/'+currentPage).then(
-            function (resp) {
-              console.log(resp)
-              _this.pageData=resp.data.records
-              _this.pageTotal=resp.data.total
-              _this.pageSize = resp.data.size
-/*              for(var i=0; i<_this.pageData.length;i++){
-                _this.pageData[i]['dName'] = _this.department[_this.pageData[i].dno].name
-              }*/
-            }
-          )
-        },
 
+        addTeacher() {
+          this.addDialog = true,
+            this.$router.push({path: '/addTeacher'})
+        },
       },
       data() {
-        let  pageTotal = 100;
-        let  pageData =[] ;
-        let  pageSize = 10 ;
         let  department ;
         return {
           updateDialog: false,
-          pageData,
-          pageTotal,
-          pageSize,
+          addDialog: false,
+          teacherList:[],
           department,
           teacherData: {
             workno: '',
@@ -130,11 +112,9 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/student/query/1').then(function(resp) {
+        this.axios.get('http://localhost:8001/teacher/all').then(function(resp) {
           console.log(resp)
-          _this.pageData = resp.data.records
-          _this.pageTotal = resp.data.total
-          _this.pageSize = resp.data.size
+          _this.teacherList = resp.data
 
         })
           this.axios.get('http://localhost:8001/department/selectDepartmentAllNameMap').then(function(resp){
@@ -142,12 +122,6 @@
         })
         _this.updateDialog = false
 
-        /*this.$router.push({
-          path: '/updateStudent',
-          query:{
-            updateDialog: false
-          }
-        })*/
 
       }
     }

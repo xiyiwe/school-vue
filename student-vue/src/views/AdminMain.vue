@@ -4,9 +4,17 @@
       <el-menu router :default-openeds="['1', '3']">
         <el-submenu index="1">
           <template slot="title">学生管理</template>
-            <el-menu-item index="/addStudent">增加学生</el-menu-item>
+<!--            <el-menu-item index="/addStudent">增加学生</el-menu-item>-->
             <el-menu-item index="/selectAllStudent">学生管理</el-menu-item>
             <el-menu-item index="1-3">学生选课</el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">教师管理</template>
+          <el-menu-item index="/selectAllTeacher">教师管理</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">课程管理</template>
+          <el-menu-item index="/selectAllCourse">课程管理</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>

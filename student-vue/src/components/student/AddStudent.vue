@@ -106,6 +106,7 @@
                   confirmButtonText: '确定',
                   callback: action => {
                     _this.$router.push('/selectAllStudent')
+                    window.location.reload()
                   }
                 })
               }
