@@ -36,7 +36,7 @@
       v-if='updateDialog'
       :destroy-on-close="true">
       <router-view></router-view>
-      <span slot="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-footer" >
         <el-button @click="updateDialog = false">取 消</el-button>
         <!--<el-button type="primary" @click="updateDialog = false">确 定</el-button>-->
       </span>

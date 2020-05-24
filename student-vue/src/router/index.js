@@ -19,6 +19,7 @@ import UpdateTeacher from "../components/teacher/UpdateTeacher";
 import AddCourse from "../components/course/AddCourse";
 import UpdateCourse from "../components/course/UpdateCourse";
 import SelectAllCourse from "../views/admin/SelectAllCourse";
+import UpdateStudentScore from "../views/teacher/UpdateStudentScore";
 Vue.use(Router)
 
 const routes = [
@@ -81,7 +82,13 @@ const routes = [
         path: '/electingCourseTeacher',
         name: 'electingCourseTeacher',
         component: ElectingCourseTeacher
+      },
+      {
+        path: '/updateStudentScore',
+        name:'updateStudentScore',
+        component: UpdateStudentScore
       }
+
     ]
   },
   //管理员页面

@@ -33,7 +33,7 @@
     </el-form-item>
 
     <el-form-item label="院系" >
-      <el-select  v-model="ruleForm.dno" clearable placeholder="请选择">
+      <el-select  v-model="ruleForm.dno" clearable  placeholder="请选择">
         <el-option
           v-for="item in dOptions"
           :key="item.dno"

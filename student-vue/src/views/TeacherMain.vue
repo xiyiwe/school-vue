@@ -7,12 +7,10 @@
           <el-menu-item index="/openingCourseTeacher">可开课程</el-menu-item>
           <el-menu-item index="/electingCourseTeacher">已开课程</el-menu-item>
         </el-submenu>
-<!--        <el-submenu index="2">-->
-<!--          <template slot="title"><i class="el-icon-menu"></i>导航二</template>-->
-<!--          <el-menu-item index="2-1">选项1</el-menu-item>-->
-<!--          <el-menu-item index="2-2">选项2</el-menu-item>-->
-<!--          <el-menu-item index="2-3">选项3</el-menu-item>-->
-<!--        </el-submenu>-->
+        <el-submenu index="2">
+          <template slot="title">学生管理</template>
+          <el-menu-item index="/updateStudentScore">学生成绩</el-menu-item>
+        </el-submenu>
 <!--        <el-submenu index="3">-->
 <!--          <template slot="title"><i class="el-icon-setting"></i>导航三</template>-->
 <!--          <el-menu-item index="3-1">选项1</el-menu-item>-->

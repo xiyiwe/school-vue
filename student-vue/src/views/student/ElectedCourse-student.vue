@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form style="width: 60%"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="学期: " >
         <el-select  v-model="selectedTerm" default-first-option>
           <el-option @click.native="queryElected()"
@@ -24,6 +24,12 @@
         <el-table-column prop="term" label="学期">
         </el-table-column>
         <el-table-column prop="time" label="上课时间">
+        </el-table-column>
+        <el-table-column prop="daily_score" label="平时成绩">
+        </el-table-column>
+        <el-table-column prop="test_score" label="测试成绩">
+        </el-table-column>
+        <el-table-column prop="final_score" label="最终成绩">
         </el-table-column>
         <el-table-column
           fixed="right"
@@ -159,15 +165,16 @@
         }
       },
       queryElected(){
+        this.schedulePadding=[-1, -1, -1, -1, -1]
         const _this = this
-        const url_prefix = 'http://localhost:8001/student'
         const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
-        this.axios.get(url_prefix + '/elected/' + url_suffix).then(function (resp) {
+        this.axios.get(  'http://localhost:8001/student/elected/' + sessionStorage.getItem("currentUser")+this.selectedTerm)
+          .then(function (resp) {
           _this.courseData = resp.data
           _this.resultCourseData = resp.data
         })
         _this.updateDialog = false
-        this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
+        this.axios.get(  'http://localhost:8001/student/schedule/' + url_suffix).then(function (resp) {
           _this.courseList = resp.data
           console.log(resp.data)
         })

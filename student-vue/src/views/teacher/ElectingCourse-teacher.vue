@@ -72,7 +72,6 @@
           _this.courseList = resp.data
         })
 
-
       }
     }
 </script>
