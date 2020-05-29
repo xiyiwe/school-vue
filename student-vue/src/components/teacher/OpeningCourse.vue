@@ -1,12 +1,5 @@
 <template>
- <!-- <el-dialog
-    title="修改页面"
-    :visible.sync="updateDialog"
-    width="60%"
-    @close="resetForm('ruleForm')"
-    v-if='updateDialog'
-    :destroy-on-close="true"
-  >-->
+
     <el-form  style="width: 60%" :model="openingData" :rules="rules"  ref="form" label-width="100px" class="demo-ruleForm">
 
       <el-form-item  label="课程号" prop="cno">
@@ -19,11 +12,11 @@
 
 
       <el-form-item label="学期" prop="term">
-        <el-input v-model="openingData.term"></el-input>
+        <el-input v-model="openingData.term"  :disabled="true"></el-input>
       </el-form-item>
 
-      <el-form-item label="上课时间" prop="time">
-        <el-input v-model="openingData.time"></el-input>
+      <el-form-item label="上课时间"  prop="time">
+        <el-input placeholder="例：星期四1-2" v-model="openingData.time"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -57,7 +50,7 @@
         const _this = this
         this.$refs[form].validate((valid) => {
           if (valid) {
-            this.axios.post('http://localhost:8001/teacher/opening/add',this.openingData).then(function(resp){
+            this.axios.post('/teacher/opening/add',this.openingData).then(function(resp){
               if(resp.data === 'success'){
                 _this.$alert('开课成功！', '消息', {
                   confirmButtonText: '确定'
@@ -78,15 +71,11 @@
         this.$refs[formName].resetFields();
       }
     },
-/*  updated() {
-    this.ruleForm=this.$route.query.student
-    this.updateDialog=this.$route.query.updateDialog
-    console.log(this.updateDialog)
-    console.log(1)
-  },*/
+
     created() {
       this.courseData=this.$route.query.courseData
       this.openingData.cno=this.courseData.cno
+      this.openingData.term=localStorage.getItem("currentTerm")
     },
 
 }

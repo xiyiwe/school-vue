@@ -1,16 +1,8 @@
 <template>
- <!-- <el-dialog
-    title="修改页面"
-    :visible.sync="updateDialog"
-    width="60%"
-    @close="resetForm('ruleForm')"
-    v-if='updateDialog'
-    :destroy-on-close="true"
-  >-->
     <el-form  style="width: 60%" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
 
       <el-form-item  label="工号" prop="workno">
-        <el-input :disabled="true" v-model="ruleForm.sno"></el-input>
+        <el-input :disabled="true" v-model="ruleForm.workno"></el-input>
       </el-form-item>
 
       <el-form-item label="姓名" prop="name">
@@ -55,9 +47,6 @@
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
       </el-form-item>
     </el-form>
-
-
-
 
 </template>
 
@@ -104,9 +93,9 @@
     methods: {
       submitForm(formName) {
         const _this = this
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.axios.post('http://localhost:8001/teacher/crud/update',this.ruleForm).then(function(resp){
+        // this.$refs[formName].validate((valid) => {
+        //   if (valid) {
+            this.axios.post('/teacher/crud/update',this.ruleForm).then(function(resp){
               if(resp.data === 'success'){
                 _this.$alert(_this.ruleForm.name+' 修改成功！', '消息', {
                   confirmButtonText: '确定'
@@ -118,31 +107,18 @@
                 })
               }
             })
-          } else {
-            return false;
-          }
-        });
-      },
+          },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
     },
-/*  updated() {
-    this.ruleForm=this.$route.query.student
-    this.updateDialog=this.$route.query.updateDialog
-    console.log(this.updateDialog)
-    console.log(1)
-  },*/
     created() {
       this.ruleForm=this.$route.query.student
-
       const _this=this
-      this.axios.get('http://localhost:8001/department/selectDepartmentAllName').then(function(resp){
-
+      this.axios.get('/department/selectDepartmentAllName').then(function(resp){
           _this.dOptions = resp.data
     })
     },
-
 }
 </script>
 

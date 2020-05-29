@@ -14,6 +14,7 @@ import qs from 'qs';
 Vue.prototype.$qs = qs;
 Vue.use(VueSession)
 Vue.prototype.axios = axios
+axios.defaults.baseURL = '/bpi'
 Vue.config.productionTip = false
 // 安装 ElementUI
 Vue.use(ElementUI);

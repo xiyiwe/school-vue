@@ -82,7 +82,7 @@
         deleteStudent(row){
           this.studentData.sno=row.sno
           const _this = this
-          this.axios.post('http://localhost:8001/student/crud/delete',this.studentData).then(function(resp){
+          this.axios.post('/student/crud/delete',this.studentData).then(function(resp){
             _this.$alert('《'+row.name+'》删除成功！', '消息', {
               confirmButtonText: '确定',
               callback: action => {
@@ -107,7 +107,7 @@
         },
         page(currentPage) {
           const _this = this
-          this.axios.get('http://localhost:8001/student/query/'+currentPage).then(
+          this.axios.get('/student/query/'+currentPage).then(
             function (resp) {
               console.log(resp)
               _this.pageData=resp.data.records
@@ -146,7 +146,7 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/student/query/1').then(function(resp) {
+        this.axios.get('/student/query/1').then(function(resp) {
           console.log(resp)
           _this.pageData = resp.data.records
           _this.pageTotal = resp.data.total
@@ -156,7 +156,7 @@
           }*/
 
         })
-          this.axios.get('http://localhost:8001/department/selectDepartmentAllNameMap').then(function(resp){
+          this.axios.get('/department/selectDepartmentAllNameMap').then(function(resp){
           _this.department = resp.data
         })
         _this.updateDialog = false

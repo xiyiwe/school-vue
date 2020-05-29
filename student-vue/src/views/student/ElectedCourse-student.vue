@@ -95,6 +95,9 @@
     },
     methods:{
       objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+        if (rowIndex + columnIndex === 0) {
+          this.schedulePadding = [-1, -1, -1, -1, -1];
+        }
         columnIndex --;
         let week = this.week[columnIndex];
         if (rowIndex < this.schedulePadding[columnIndex]) { return [0, 0]; }
@@ -141,16 +144,7 @@
         })
       },
       searchByCourseName(){
-        /*            // 为表单绑定验证功能
-                    console.log(this.searchCourseName.courseName)
-        /!*            this.$refs[formName].validate((valid) => {
-                      if (valid) {*!/
-                        const _this = this
-                        console.log(this.searchCourseName.courseName)
-                        this.axios.get('http://localhost:8001/searchByCourseName/' + this.searchCourseName.courseName).then(function (resp) {
-                          console.log(resp.data)
-                          _this.courseData = resp.data
-                        })*/
+
         const _this= this
         _this.resultCourseData=[]
         this.courseData.forEach(function (item,index) {
@@ -165,7 +159,6 @@
         }
       },
       queryElected(){
-        this.schedulePadding=[-1, -1, -1, -1, -1]
         const _this = this
         const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
         this.axios.get(  'http://localhost:8001/student/elected/' + sessionStorage.getItem("currentUser")+this.selectedTerm)

@@ -4,10 +4,10 @@
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="账号" prop="username">
-        <el-input type="text" name="username" placeholder="请输入账号" v-model="form.username"/>
+        <el-input type="text" name="username" placeholder="请输入账号,管理员帐号:000" v-model="form.username"/>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" name="password" placeholder="请输入密码" v-model="form.password"/>
+        <el-input type="password" name="password" placeholder="请输入密码，管理员帐号:root" v-model="form.password"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
@@ -15,16 +15,6 @@
       <span >{{ errorMessage }}</span>
     </el-form>
 
-<!--    <el-dialog
-      title="温馨提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
-      <span>请输入账号和密码</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog>-->
   </div>
 </template>
 
@@ -53,6 +43,11 @@
         dialogVisible: false
       }
     },
+    //设置当前学期
+    created() {
+      localStorage.setItem("currentTerm","2012-2013冬季")
+    }
+    ,
     methods: {
       onSubmit(formName) {
         const _this=this
@@ -63,15 +58,11 @@
             console.log(_this.form.username)
             this.axios(
               {
-                url: 'http://localhost:8001/login',
+                url: '/login',
                 method: 'post',
                 data: {
-/*                  username: this.$qs.stringify(_this.form.username),
-                  password: this.$qs.stringify(_this.form.password)*/
                   username: _this.form.username,
                   password  :_this.form.password
-/*                  username: "1102",
-                  password  : "1102"*/
                 }
               }).then(function(resp){
                 console.log(resp)
@@ -93,10 +84,7 @@
                 else if(resp.data.errorMessage != null){
                   _this.errorMessage = resp.data.errorMessage
                   console.log(_this.errorMessage)
-                } /*else {
-                  // this.dialogVisible = true;
-                  return false;
-                }*/
+                }
               })
               }
             })

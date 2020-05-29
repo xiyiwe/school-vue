@@ -86,10 +86,11 @@
         },
       methods:{
           isTimeOverlap(time) {
-            console.log('courseList: ' + JSON.stringify(this.courseList))
+            // console.log('courseList: ' + JSON.stringify(this.courseList))
             for (let t = time.charAt(3) - 1; t < time.charAt(5); t++) {
-              console.log(this.courseList[t][time.charAt(2)].length);
-              if (this.courseList[t][time.charAt(2)].length!=0) {
+              console.log(this.courseList[t][time.charAt(2)]);
+              console.log(time);
+              if (this.courseList[t][time.charAt(2)].length!==0) {
                 return true
               }
             }
@@ -114,7 +115,7 @@
                 })
                 return
               }
-              this.axios.post('http://localhost:8001/student/electCourse', _this.rowCourseData).then(function (resp) {
+              this.axios.post('/student/electCourse', _this.rowCourseData).then(function (resp) {
                 if(resp.data==='success'){
                   _this.$alert('选课成功！', '消息', {
                     confirmButtonText: '确定',
@@ -132,16 +133,6 @@
             })
           },
           searchByCourseName(){
-/*            // 为表单绑定验证功能
-            console.log(this.searchCourseName.courseName)
-/!*            this.$refs[formName].validate((valid) => {
-              if (valid) {*!/
-                const _this = this
-                console.log(this.searchCourseName.courseName)
-                this.axios.get('http://localhost:8001/searchByCourseName/' + this.searchCourseName.courseName).then(function (resp) {
-                  console.log(resp.data)
-                  _this.courseData = resp.data
-                })*/
             const _this= this
             _this.resultCourseData=[]
              this.courseData.forEach(function (item,index) {
@@ -155,22 +146,20 @@
                 _this.errorMessage="没有搜索结果"
             }
           }
-/*            })
-          }*/
+
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/opening/' + this.termList[0]).then(function(resp) {
+        this.axios.get('/opening/' + localStorage.getItem("currentTerm")).then(function(resp) {
           // resp.data['count'] = resp.data['count'] + '/70'
           // console.log(resp.data['count'])
 
-          console.log(resp.data)
           _this.courseData = resp.data
           _this.resultCourseData = resp.data
 
         })
         this.selectedTerm = this.termList[0]
-        const url_prefix = 'http://localhost:8001/student'
+        const url_prefix = '/student'
         const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
         this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
           console.log(url_prefix + '/schedule/' + url_suffix)

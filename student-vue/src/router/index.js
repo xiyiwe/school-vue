@@ -13,13 +13,13 @@ import OpeningCourseTeacher from "../views/teacher/OpeningCourse-teacher"
 import OpeningCourse from "../components/teacher/OpeningCourse"
 import ElectingCourseTeacher from "../views/teacher/ElectingCourse-teacher"
 import SelectAllTeacher from "../views/admin/SelectAllTeacher"
-import CourseList from "../components/student/CourseList";
 import AddTeacher from "../components/teacher/AddTeacher";
 import UpdateTeacher from "../components/teacher/UpdateTeacher";
 import AddCourse from "../components/course/AddCourse";
 import UpdateCourse from "../components/course/UpdateCourse";
 import SelectAllCourse from "../views/admin/SelectAllCourse";
 import UpdateStudentScore from "../views/teacher/UpdateStudentScore";
+import EditCurrentTerm from "../views/admin/EditCurrentTerm";
 Vue.use(Router)
 
 const routes = [
@@ -50,11 +50,6 @@ const routes = [
         path: '/electedCourseStudent',
         name: 'electedCourseStudent',
         component: ElectedCourseStudent,
-        children: [{
-            path: '/courseList',
-            name: 'courseList',
-            component: CourseList
-        }]
       },
     ],
     meta: { requiresAuth: true }
@@ -98,6 +93,12 @@ const routes = [
     component: AdminMain,
     meta: { requiresAuth: true },
     children: [
+      {
+        path: '/editCurrentTerm',
+        name: 'editCurrentTerm',
+        component: EditCurrentTerm
+      }
+      ,
       {
         path: '/selectAllCourse',
         name: 'selectAllCourse',
@@ -152,6 +153,7 @@ const routes = [
     ]
   }
   ]
+
 /*// 页面刷新时，重新赋值 user
 if (window.localStorage.getItem('user')) {
   store.state.user = window.localStorage.getItem('user')
@@ -188,47 +190,3 @@ const router = new Router({
 export default router
 
 
-/*
-export default new Router({
-  routes: [
-
-{
-    path: '/login',
-    name: 'login',
-    component: Login,
-/!*   meta: { requiresAuth: true }*!/
-  },
-/!*    {
-      path: '/',
-      name: 'adminMain1',
-      component: AdminMain,
-    },*!/
-  {
-    path: '/adminMain',
-    name: 'adminMain',
-    component: AdminMain,
-    children: [
-      {
-        path: '/addStudent',
-        name: 'addStudent',
-        component: AddStudent
-      },
-      {
-        path: '/selectAllStudent',
-        name: 'selectAllStudent',
-        component: SelectAllStudent,
-        children: [
-          {
-            path: '/updateStudent',
-            name: 'updateStudent',
-            component: UpdateStudent
-          }
-        ]
-      }
-    ]
-  }
-
-      ]
-    })
-
-*/

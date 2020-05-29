@@ -19,7 +19,6 @@
       >
         <template slot-scope="scope">
           <el-button @click="openCourse(scope.row)" type="text" size="small">开课</el-button>
-
         </template>
       </el-table-column>
     </el-table>
@@ -71,7 +70,7 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/searchByCourseName/all').then(function(resp) {
+        this.axios.get('/searchByCourseName/all').then(function(resp) {
           console.log(resp)
           _this.courseList = resp.data
         })

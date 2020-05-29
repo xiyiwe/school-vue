@@ -52,7 +52,7 @@
           this.deleteOpeningData.term=row.term
           this.deleteOpeningData.time=row.time
           const _this = this
-         this.axios.post("http://localhost:8001/teacher/opening/delete",_this.deleteOpeningData).then(function (resp) {
+         this.axios.post("/teacher/opening/delete",_this.deleteOpeningData).then(function (resp) {
            if(resp.data === 'success'){
              _this.$alert('删除成功！', '消息', {
                confirmButtonText: '确定'
@@ -68,7 +68,7 @@
       },
       created(){
         const _this = this
-        this.axios.get('http://localhost:8001/teacher/opening/'+sessionStorage.getItem("currentUser")).then(function(resp) {
+        this.axios.get('/teacher/opening/'+sessionStorage.getItem("currentUser")).then(function(resp) {
           _this.courseList = resp.data
         })
 

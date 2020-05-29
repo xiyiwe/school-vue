@@ -63,7 +63,7 @@
       deleteCourse(row){
         this.courseData.cno=row.cno
         const _this = this
-        this.axios.post('http://localhost:8001/course/crud/delete',this.courseData).then(function(resp){
+        this.axios.post('/course/crud/delete',this.courseData).then(function(resp){
           _this.$alert('《'+row.name+'》删除成功！', '消息', {
             confirmButtonText: '确定',
             callback: action => {
@@ -106,12 +106,12 @@
     },
     created(){
       const _this = this
-      this.axios.get('http://localhost:8001/searchByCourseName/all').then(function(resp) {
+      this.axios.get('/searchByCourseName/all').then(function(resp) {
         console.log(resp)
         _this.courseList = resp.data
 
       })
-      this.axios.get('http://localhost:8001/department/selectDepartmentAllNameMap').then(function(resp){
+      this.axios.get('/department/selectDepartmentAllNameMap').then(function(resp){
         _this.department = resp.data
       })
       _this.updateDialog = false
