@@ -88,8 +88,8 @@
           isTimeOverlap(time) {
             // console.log('courseList: ' + JSON.stringify(this.courseList))
             for (let t = time.charAt(3) - 1; t < time.charAt(5); t++) {
-              console.log(this.courseList[t][time.charAt(2)]);
-              console.log(time);
+              // console.log(this.courseList[t][time.charAt(2)]);
+              // console.log(time);
               if (this.courseList[t][time.charAt(2)].length!==0) {
                 return true
               }
@@ -140,7 +140,7 @@
                       _this.resultCourseData.push(item)
                     }
              })
-            console.log(_this.resultCourseData)
+            // console.log(_this.resultCourseData)
             if(_this.resultCourseData.length===0) {
                 _this.resultCourseData=_this.courseData
                 _this.errorMessage="没有搜索结果"
@@ -162,9 +162,9 @@
         const url_prefix = '/student'
         const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
         this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
-          console.log(url_prefix + '/schedule/' + url_suffix)
+          // console.log(url_prefix + '/schedule/' + url_suffix)
           _this.courseList = resp.data
-          console.log(resp.data)
+          // console.log(resp.data)
         })
         _this.updateDialog = false
 

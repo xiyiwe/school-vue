@@ -55,7 +55,6 @@
         // 为表单绑定验证功能
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(_this.form.username)
             this.axios(
               {
                 url: '/login',

@@ -109,9 +109,9 @@
           if (rowIndex+count > 7) {break;}
         }
         this.schedulePadding[columnIndex] = rowIndex + count;
-        console.log("this.schedulePadding[columnIndex]  " + this.schedulePadding[columnIndex]);
+        // console.log("this.schedulePadding[columnIndex]  " + this.schedulePadding[columnIndex]);
         if (count > 1) {
-          console.log({rowspan: count, colspan: 1});
+          // console.log({rowspan: count, colspan: 1});
           return [count, 1];
         }
       },
@@ -126,7 +126,7 @@
           this.rowCourseDate.cno = row.cno
           this.rowCourseDate.workno = row.workno
           const _this = this
-          this.axios.post('http://localhost:8001/student/removeElected', _this.rowCourseDate).then(function (resp) {
+          this.axios.post('/student/removeElected', _this.rowCourseDate).then(function (resp) {
             if(resp.data==='success'){
               _this.$alert('退课成功！', '消息', {
                 confirmButtonText: '确定',
@@ -161,22 +161,21 @@
       queryElected(){
         const _this = this
         const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
-        this.axios.get(  'http://localhost:8001/student/elected/' + sessionStorage.getItem("currentUser")+this.selectedTerm)
+        this.axios.get(  '/student/elected/' + url_suffix)
           .then(function (resp) {
           _this.courseData = resp.data
           _this.resultCourseData = resp.data
         })
         _this.updateDialog = false
-        this.axios.get(  'http://localhost:8001/student/schedule/' + url_suffix).then(function (resp) {
+        this.axios.get(  '/student/schedule/' + url_suffix).then(function (resp) {
           _this.courseList = resp.data
-          console.log(resp.data)
         })
       }
     },
     created() {
       const _this = this
       this.selectedTerm = this.termList[0]
-      const url_prefix = 'http://localhost:8001/student'
+      const url_prefix = '/student'
       const url_suffix = sessionStorage.getItem("currentUser") + '/' + this.selectedTerm
       this.axios.get(url_prefix + '/elected/' + url_suffix).then(function (resp) {
         _this.courseData = resp.data
@@ -184,7 +183,6 @@
       })
       _this.updateDialog = false
       this.axios.get(url_prefix + '/schedule/' + url_suffix).then(function (resp) {
-        console.log(JSON.stringify(resp.data));
         _this.courseList = resp.data
       })
     }
