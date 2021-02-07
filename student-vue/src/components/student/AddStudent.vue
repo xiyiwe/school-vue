@@ -54,7 +54,6 @@
   export default {
     name: "AddStudent",
     data() {
-
       let dOptions = [];
       return {
         dOptions,

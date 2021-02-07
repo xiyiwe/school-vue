@@ -29,7 +29,7 @@
             <el-dropdown-item @click.native="logout()">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>管理员：{{user}}</span>
+<!--        <span>管理员：{{user}}</span>-->
       </el-header>
 
       <el-main>
@@ -58,10 +58,9 @@
         if(sessionStorage.getItem("authority")!=="admin")
         {
           this.$router.push('/login')
-        }
-
-      }
+        }}
     }
+
 
 </script>
 
